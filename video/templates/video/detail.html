@@ -1,0 +1,22 @@
+<img src="{{ series.logo }}">
+
+<h1>{{ series.name }}</h1>
+<h3>{{ series.autor }}</h3>
+
+{% if error_message %}
+	<p><strong>{{ error_message }}</strong></p>
+{% endif %}
+
+<form action="{% url 'video:favorite' series.id %}" method="post">
+	{% csrf_token %}
+	{% for episode in series.episode_set.all %}
+		<input type="radio" id="episode{{ forloop.counter }}" name="episode" value="{{ episode.id }}">
+		<label for="episode{{ forloop.counter }}">
+			Episode {{ episode.number }} - {{ episode.title }}
+			{% if episode.is_favorite %}
+			<font color = "yellow">★</font>
+			{% endif %}
+		</label><br>
+	{% endfor %}
+	<input type="submit" value="Favorite">
+</form>
