@@ -1,28 +1,19 @@
 {% extends 'video/base.html' %}
-
 {% block title %}Episode Details{% endblock %}
 
 {% block body %}
-	<img src="{{ series.logo }}">
+
+	<img src="{{ series.logo }}" style="width: 250px;">
 
 	<h1>{{ series.name }}</h1>
-	<h3>{{ series.autor }}</h3>
+	<h2>{{ series.autor }}</h2>
 
-	{% if error_message %}
-		<p><strong>{{ error_message }}</strong></p>
-	{% endif %}
+	{% for episode in series.episode_set.all %}
+		Episode {{ episode.number }} - {{ episode.title }}
+		{% if episode.is_favorite %}
+			<font color = "yellow">★</font>
+		{% endif %}
+		<br>
+	{% endfor %}
 
-	<form action="{% url 'video:favorite' series.id %}" method="post">
-		{% csrf_token %}
-		{% for episode in series.episode_set.all %}
-			<input type="radio" id="episode{{ forloop.counter }}" name="episode" value="{{ episode.id }}">
-			<label for="episode{{ forloop.counter }}">
-				Episode {{ episode.number }} - {{ episode.title }}
-				{% if episode.is_favorite %}
-				<font color = "yellow">★</font>
-				{% endif %}
-			</label><br>
-		{% endfor %}
-		<input type="submit" value="Favorite">
-	</form>
 {% endblock %}

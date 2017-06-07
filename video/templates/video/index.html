@@ -1,14 +1,11 @@
 {% extends 'video/base.html' %}
 
 {% block body %}
-	{% if all_series %}
-		<h3>Here are all my series:</h3>
-		<ul>
-			{% for series in all_series %}
-			<li><a href="{% url 'video:detail' series.id %}">{{series.name}}</a></li>
-			{% endfor %}
-		</ul>
-	{% else %}
-		<h3>You don't have any series</h3>
-	{% endif %}
+		
+	<ul>
+		{% for series in all_series %}
+		<li><a href="{% url 'video:detail' series.id %}">{{series.name}}</a></li>
+		{% endfor %}
+	</ul>
+	
 {% endblock %}
