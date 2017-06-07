@@ -1,5 +1,6 @@
 from django.views import generic
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from django.core.urlresolvers import reverse_lazy
 from .models import Series
 
 class IndexView(generic.ListView):
@@ -16,3 +17,11 @@ class DetailView(generic.DetailView):
 class SeriesCreate(CreateView):
 	model = Series
 	fields = ['autor', 'name', 'genre', 'logo']
+
+class SeriesUpdate(UpdateView):
+	model = Series
+	fields = ['autor', 'name', 'genre', 'logo']
+
+class SeriesDelete(DeleteView):
+	model = Series
+	sucess_url = reverse_lazy()

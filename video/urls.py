@@ -7,4 +7,6 @@ urlpatterns = [
     url(r'^$', views.IndexView.as_view(), name='index'),
     url(r'^(?P<pk>[0-9]+)/$', views.DetailView.as_view(), name='detail'),
     url(r'series/add/$', views.SeriesCreate.as_view(), name='series-add'),
+    url(r'series/(?P<pk>[0-9]+)/$', views.SeriesUpdate.as_view(), name='series-update'),
+    url(r'series/(?P<pk>[0-9]+)/delete/$', views.SeriesDelete.as_view(), name='series-delete'),
 ]
