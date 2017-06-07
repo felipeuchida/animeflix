@@ -27,7 +27,6 @@
         <div class="col-sm-8 col-md-9">
 
             <ul class="nav nav-pills" style="margin-bottom: 10px;">
-                <li role="presentation" class="active"><a href="{% url 'video:detail' series.id %}">View All</a></li>
                 <li role="presentation"><a href="#">Add New Episode</a></li>
             </ul>
 
@@ -45,23 +44,19 @@
                         <tr>
                             <th>Title</th>
                             <th>Links</th>
-                            <th>Favorite</th>
                             <th>Actions</th>
                         </tr>
                         </thead>
                         <tbody>
                         {% for episode in series.episode_set.all %}
                             <tr>
-                                <td>{{ episode.title }}</td>
+                                <td>Episode {{ episode.number }} - {{ episode.title }}</td>
                                 <td>
-                                    <a target="_blank" href="#">
+                                    <a target="_blank" href="{{ episode.link_video }}">
                                         <button type="button" class="btn btn-success btn-xs">
                                             <span class="glyphicon glyphicon-play"></span>&nbsp; Play
                                         </button>
                                     </a>
-                                </td>
-                                <td>
-                                    <a href="#" class="btn-favorite"><span class="glyphicon glyphicon-star {% if episode.is_favorite %}active{% endif %}"></span></a>
                                 </td>
                                 <td>
                                     <form action="#" method="post" style="display: inline;">
