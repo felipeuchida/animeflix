@@ -5,7 +5,7 @@ class Series(models.Model):
 	autor = models.CharField(max_length=100)
 	name = models.CharField(max_length=100)
 	genre = models.CharField(max_length=100)
-	logo = models.CharField(max_length=1000)
+	logo = models.FileField()
 
 	def get_absolute_url(self):
 		return reverse('video:detail', kwargs={'pk': self.pk})

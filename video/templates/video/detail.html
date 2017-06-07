@@ -12,7 +12,7 @@
                 <div class="panel-body">
                     <a href="{% url 'video:detail' series.id %}">
                         {% if series.logo %}
-                            <img src="{{ series.logo }}" class="img-responsive">
+                            <img src="{{ series.logo.url }}" class="img-responsive">
                         {% else %}
                             <h3>No image to display</h3>
                         {% endif %}

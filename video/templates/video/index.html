@@ -13,7 +13,7 @@
                 <div class="col-sm-4 col-lg-2">
                     <div class="thumbnail">
                         <a href="{% url 'video:detail' series.id %}">
-                            <img src="{{ series.logo}}" class="img-responsive">
+                            <img src="{{ series.logo.url }}" class="img-responsive">
                         </a>
                         <div class="caption">
                             <h2>{{ series.series_title }}</h2>
@@ -44,7 +44,7 @@
         {% else %}
             <div class="col-sm-12">
                 <br>
-                <a href="#">
+                <a href="{% url 'video:series-add' %}">
                     <button type="button" class="btn btn-success">
                         <span class="glyphicon glyphicon-plus"></span>&nbsp; Add an series
                     </button>
