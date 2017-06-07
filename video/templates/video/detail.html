@@ -1,19 +1,118 @@
 {% extends 'video/base.html' %}
-{% block title %}Episode Details{% endblock %}
-
+{% block title %}{{ series }}{% endblock %}
 {% block body %}
 
-	<img src="{{ series.logo }}" style="width: 250px;">
+<div class="container-fluid episodes-container">
 
-	<h1>{{ series.name }}</h1>
-	<h2>{{ series.autor }}</h2>
+    <div class="row">
 
-	{% for episode in series.episode_set.all %}
-		Episode {{ episode.number }} - {{ episode.title }}
-		{% if episode.is_favorite %}
-			<font color = "yellow">★</font>
-		{% endif %}
-		<br>
-	{% endfor %}
+        <!-- Left Series Info -->
+        <div class="col-sm-4 col-md-3">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <a href="{% url 'video:detail' series.id %}">
+                        {% if series.logo %}
+                            <img src="{{ series.logo }}" class="img-responsive">
+                        {% else %}
+                            <h3>No image to display</h3>
+                        {% endif %}
+                    </a>
+                    <h1>{{ series.name }} <small>{{  series.genre }}</small></h1>
+                    <h2>{{ series.autor }}</h2>
+                </div>
+            </div>
+        </div>
+
+        <!-- Right episode Info -->
+        <div class="col-sm-8 col-md-9">
+
+            <ul class="nav nav-pills" style="margin-bottom: 10px;">
+                <li role="presentation" class="active"><a href="{% url 'video:detail' series.id %}">View All</a></li>
+                <li role="presentation"><a href="#">Add New Episode</a></li>
+            </ul>
+
+            <div class="panel panel-default">
+                <div class="panel-body">
+
+                    <h3>All Episodes</h3>
+
+                    {% if error_message %}
+                        <p><strong>{{ error_message }}</strong></p>
+                    {% endif %}
+
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Links</th>
+                            <th>Favorite</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for episode in series.episode_set.all %}
+                            <tr>
+                                <td>{{ episode.title }}</td>
+                                <td>
+                                    <a target="_blank" href="#">
+                                        <button type="button" class="btn btn-success btn-xs">
+                                            <span class="glyphicon glyphicon-play"></span>&nbsp; Play
+                                        </button>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a href="#" class="btn-favorite"><span class="glyphicon glyphicon-star {% if episode.is_favorite %}active{% endif %}"></span></a>
+                                </td>
+                                <td>
+                                    <form action="#" method="post" style="display: inline;">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="episode_id" value="{{ episode.id }}" />
+                                        <button type="submit" class="btn btn-danger btn-xs">
+                                            <span class="glyphicon glyphicon-remove"></span>&nbsp; Delete
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
 
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

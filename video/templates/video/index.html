@@ -1,11 +1,59 @@
 {% extends 'video/base.html' %}
 
 {% block body %}
-		
-	<ul>
-		{% for series in all_series %}
-		<li><a href="{% url 'video:detail' series.id %}">{{series.name}}</a></li>
-		{% endfor %}
-	</ul>
-	
+
+<div class="series-container container-fluid">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <h3>Series</h3>
+        </div>
+            {% if all_series %}
+                {% for series in all_series %}
+                <div class="col-sm-4 col-lg-2">
+                    <div class="thumbnail">
+                        <a href="{% url 'video:detail' series.id %}">
+                            <img src="{{ series.logo}}" class="img-responsive">
+                        </a>
+                        <div class="caption">
+                            <h2>{{ series.series_title }}</h2>
+                            <h4>{{ series.artist }}</h4>
+
+                            <!-- View Details -->
+                            <a href="{% url 'video:detail' series.id %}" class="btn btn-primary btn-sm" role="button">View Details</a>
+
+                            <!-- Delete series -->
+                            <form action="#" method="post" style="display: inline;">
+                                {% csrf_token %}
+                                <input type="hidden" name="series_id" value="{{ series.id }}" />
+                                <button type="submit" class="btn btn-default btn-sm">
+                                    <span class="glyphicon glyphicon-trash"></span>
+                                </button>
+                            </form>
+
+                            <!-- Favorite series -->
+                            <a href="#" class="btn btn-default btn-sm btn-favorite" role="button">
+                                <span class="glyphicon glyphicon-star"></span>
+                            </a>
+
+                        </div>
+                    </div>
+                </div>
+                {% cycle '' '' '' '' '' '<div class="clearfix visible-lg"></div>' %}
+            {% endfor %}
+        {% else %}
+            <div class="col-sm-12">
+                <br>
+                <a href="#">
+                    <button type="button" class="btn btn-success">
+                        <span class="glyphicon glyphicon-plus"></span>&nbsp; Add an series
+                    </button>
+                </a>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
 {% endblock %}
+
+
